@@ -1,0 +1,49 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+*/out/
+spring-shell.log
+*/build/
+/*.log
+.DS_Store
+cryptowallet
+*.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/**/out/
+build
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+**/generated
+
+## Frontend 
+
+node_modules
+dist
+package-lock.json
+
+## emacs
+*.*~
+
+## docker volume containers
+
+mysql_data

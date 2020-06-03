@@ -1,0 +1,24 @@
+{
+  "name": "palletz-test",
+  "version": "0.0.1",
+  "description": "PalletZ Test UI",
+  "private": true,
+  "main": "./src/main/main.ts",
+  "scripts": {
+    "test": "jest '(\\\\/test\\\\/(?!e2e/)).*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/baramnamu/palletz-test.git"
+  },
+  "keywords": [
+    "wallet",
+    "cold wallet"
+  ],
+  "author": "pentasecurity.com",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/baramnamu/palletz-test/issues"
+  },
+  "homepage": "https://github.com/baramnamu/palletz-test#readme"
+}
