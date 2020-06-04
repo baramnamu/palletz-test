@@ -1,7 +1,7 @@
 {
   "name": "palletz-test",
   "version": "0.0.1",
-  "description": "PalletZ Test UI",
+  "description": "PalletZ is a Cold Wallet Application",
   "private": true,
   "main": "./src/main/main.ts",
   "scripts": {
