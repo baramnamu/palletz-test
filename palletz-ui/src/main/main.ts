@@ -1,10 +1,15 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path'
 import * as url from 'url'
+import { registerHandler, registerListener } from 'pzsc/dist/main'
+import { registerFingerListener } from 'pzfinger/dist/finger'
+import registerHSMHandler from './hsm'
+import { registerDiskListener } from 'pzburn/dist/disk'
+import { exec } from 'child_process'
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
-const isQa = process.env.NODE_ENV === 'qa';
+// const isQa = process.env.NODE_ENV === 'qa';
 
 let win: BrowserWindow | null;
 
@@ -18,35 +23,97 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-    if (isDevelopment) {
-        await installExtensions()
+  
+  if (isDevelopment) {
+    await installExtensions()
+  }
+
+  win = new BrowserWindow({
+      width: 1024,
+      height: 800,
+      alwaysOnTop: !isDevelopment,
+      fullscreen: !isDevelopment,
+      webPreferences: {
+        webSecurity: false,
+        nodeIntegration: true
+      }
+  });
+
+  win.setMenu(null);
+
+  if (isDevelopment) {
+      process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1'
+      win.loadURL(`http://localhost:2003/#/login`)
+  } else {
+      win.loadURL(
+        url.format({
+          pathname: path.join(__dirname, 'index.html'),
+          protocol: 'file:',
+          slashes: true
+        }) + '#/login'
+      )
+  }
+
+  if (!isProduction) {
+    // Open DevTools, see https://github.com/electron/electron/issues/12438 for why we wait for dom-ready
+    win.webContents.once('dom-ready', () => {
+      win!.webContents.openDevTools()
+    })
+  }
+
+  // Disable new window
+  win.webContents.on('new-window', (e, url) => {
+    console.log(`Try to open ${url}`)
+    e.preventDefault()
+  });
+
+  win.on('closed', () => (win = null));
+  
+  // Register other devices only if HSM is ready.
+  registerHSMHandler(win!.webContents, isDevelopment)
+  registerListener(ipcMain, win!.webContents)
+  registerFingerListener(ipcMain, win!.webContents)
+  registerDiskListener(ipcMain, win!.webContents)
+
+  ipcMain.on('shutdown-palletz',  async (_, channel) => {
+    exec('shutdown /s /t 0', (err, stdout, stderr) => {
+      if (err) {
+        console.error(err)
+        win!.webContents.send(channel, err)
+        return
+      }
+    })
+  })
+
+  ipcMain.on('restart-palletz',  async (_, channel) => {
+    exec('shutdown /r /t 0', (err, stdout, stderr) => {
+      if (err) {
+        console.error(err)
+        win!.webContents.send(channel, err)
+        return
+      }
+    })
+  })
+
+}
+
+const singleInstanceLock = app.requestSingleInstanceLock();
+
+if (!singleInstanceLock && isProduction) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (win) {
+      if (win.isMinimized()) {
+        win.restore()
+      }
+      win.focus()
     }
+  })
 
-    win = new BrowserWindow({
-        width: 1024,
-        height: 800,
-        alwaysOnTop: !isDevelopment,
-        fullscreen: !isDevelopment,
-        webPreferences: {
-          webSecurity: false,
-          nodeIntegration: true
-        }
-    });
+  registerHandler()
 
-    win.setMenu(null);
-
-    if (isDevelopment) {
-        console.log("is Development");
-        process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1'
-        win.loadURL(`http://localhost:2003/#/login`)
-    } else {
-        console.log("is not Development");
-        win.loadURL(
-          url.format({
-            pathname: path.join(__dirname, 'index.html'),
-            protocol: 'file:',
-            slashes: true
-          }) + '#/login'
-        )
-    }
+  app.on('ready', createWindow)
+    .on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
+    .on('activate', () => win === null && createWindow())
 }
