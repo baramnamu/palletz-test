@@ -44,7 +44,7 @@ module.exports = merge.smart(baseConfig, {
             },
             {
                 test: /\.css$/,
-                loaders: ['style-loader', 'css-loader']
+a                loaders: ['style-loader', 'css-loader']
             },
             {
                 test: /\.svg?$/,
@@ -55,14 +55,14 @@ module.exports = merge.smart(baseConfig, {
                 use: [
                     'file-loader',
                     {
-                        loader: 'image-webpack-loader',
+                        loader: 'image-webpack-loader', // 이미지 파일을 압축/최적화한다.
                         options: {
-                            disable: true
+                            disable: true   // webpack@2.x 이상의 debug 모드에서 일반적인 file-loader처럼 동작한다; 파일 압축/최적화 없음.
                         }
                     }
                 ]
             },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.  이렇게 하면 기존의 TypeScript 소스 코드를 디버깅하는 것 처럼 최종 출력 파일을 디버깅 할 수 있습니다.
             {
                 enforce: 'pre',
                 test: /\.(js|ts|tsx)$/,
@@ -74,13 +74,15 @@ module.exports = merge.smart(baseConfig, {
         ]
     },
     plugins: [
+        // ForkTsCheckerWebpackPlugin 는 Typescript Error를 보고한다. Typescript로 React 개발시 필수.
         new ForkTsCheckerWebpackPlugin({
             reportFiles: ['src/renderer/**/*']
         }),
+        //  NamedModulesPlugin은 development 모드에서 웹팩 파일 로그에, 상대 경로를 알려준다
         new webpack.NamedModulesPlugin(),
         new HtmlWebpackPlugin({
           template: path.join(__dirname, 'src/main/index.html'),
-          inject: true,
+          inject: true, // <BODY> 밑으로 .js 파일이 삽입된다.
           filename: path.join(__dirname, 'dist/index.html')
         }),
         new webpack.DefinePlugin({

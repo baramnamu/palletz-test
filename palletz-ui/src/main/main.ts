@@ -111,9 +111,9 @@ if (!singleInstanceLock && isProduction) {
     }
   })
 
-  registerHandler()
+  registerHandler();
 
   app.on('ready', createWindow)
     .on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
-    .on('activate', () => win === null && createWindow())
+    .on('activate', () => win === null && createWindow());
 }

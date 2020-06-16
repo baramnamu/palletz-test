@@ -3,6 +3,7 @@
 const path = require('path');
 
 module.exports = {
+    // mode에 따라 enable/disable되는 plugin이 있다. 참조-> https://webpack.js.org/configuration/mode/#usage
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
