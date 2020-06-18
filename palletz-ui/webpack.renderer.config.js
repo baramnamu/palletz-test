@@ -36,7 +36,7 @@ module.exports = merge.smart(baseConfig, {
             },
             {
                 test: /\.(ttf|eot|woff|woff2)(\?.+)?$/,
-                loader: 'file-loader?name=[hash:12].[ext]'
+                loader: 'file-loader?name=[hash:12].[ext]'  // [hash]는 application이 컴파일될 때 웹팩에서 생성된 해시를 사용
             },
             {
                 test: /\.scss$/,
@@ -44,7 +44,7 @@ module.exports = merge.smart(baseConfig, {
             },
             {
                 test: /\.css$/,
-a                loaders: ['style-loader', 'css-loader']
+                loaders: ['style-loader', 'css-loader']
             },
             {
                 test: /\.svg?$/,
