@@ -29,10 +29,15 @@ const render = () => {
   return ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        Testing...
         {/* <Application history={history}/> */}
       </Provider>
     </AppContainer>,
     mainElement
   )
+}
+
+render()
+
+if (module.hot) {
+  module.hot.accept('./app', () => render)
 }

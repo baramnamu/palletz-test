@@ -2,7 +2,6 @@ import { createHash } from 'crypto'
 import { replace } from 'connected-react-router'
 import store from './store'
 import { Dispatch } from 'redux'
-import * as React from 'react'
 
 export const InitLaunchURL = '/launch/system-admin/change-password'
 
@@ -35,12 +34,12 @@ export const GotoDefaultPage = (dispatch: Dispatch<any>) => () => {
 
 export const MAX_ELEMENTS = 0x7fffffff
 
-// export const PageTypesMap: KvMap<string> = {
-//   'GLOBAL_POLICY': 'Global Policy',
-//   'WALLET_POLICY': 'Wallet Policy',
-//   'WALLET': 'Wallet',
-//   'LOGIN_LOGOUT': 'Login/Logout'
-// }
+export const PageTypesMap: KvMap<string> = {
+  'GLOBAL_POLICY': 'Global Policy',
+  'WALLET_POLICY': 'Wallet Policy',
+  'WALLET': 'Wallet',
+  'LOGIN_LOGOUT': 'Login/Logout'
+}
 
 export const EntropySizes: { [key: number]: [number, number] } = {
   128: [128, 49],
