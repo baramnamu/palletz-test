@@ -20,30 +20,30 @@ export interface UserResponse {
   createdAt: Date
 }
 
-// export interface WalletResponse {
-//   id: string,
-//   walletId: string,
-//   coinType: string,
-//   name: string
-//   address: string,
-//   velocities: { [key: string]: string },
-//   needCount: number
-//   approvalUsers: string[]
-//   tokens?: {
-//     walletId: string,
-//     symbol: string
-//   }[]
-//   exportedType: WalletExportedType
-// }
+export interface WalletResponse {
+  id: string,
+  walletId: string,
+  coinType: string,
+  name: string
+  address: string,
+  velocities: { [key: string]: string },
+  needCount: number
+  approvalUsers: string[]
+  tokens?: {
+    walletId: string,
+    symbol: string
+  }[]
+  exportedType: WalletExportedType
+}
 
-// export interface WalletHistoryResponse {
-//   id: string
-//   feeAmount: string
-//   unitPrice: string
-//   toAddress: string
-//   approvalResult: TxApprovalResult
-//   amount: string
-// }
+export interface WalletHistoryResponse {
+  id: string
+  feeAmount: string
+  unitPrice: string
+  toAddress: string
+  approvalResult: TxApprovalResult
+  amount: string
+}
 
 export interface WhitelistDetailUpdateRequest {
   id: string,
@@ -271,23 +271,23 @@ export interface WalletNameCheckResponse {
 //   transactions: TransactionDTO[]
 // }
 
-// export interface WalletListResponse {
-//   wallets: WalletResponse[]
-//   deleted: WalletResponse[]
-// }
+export interface WalletListResponse {
+  wallets: WalletResponse[]
+  deleted: WalletResponse[]
+}
 
 export interface WalletData extends WalletExportData {
   old: boolean
 }
 
-// export interface TransactionExport {
-//   id: string,
-//   rawTransactionHex: string,
-//   finalizedAt: string,
-//   approvalResult: TxApprovalResult,
-//   extra: string,
-//   draft: string
-// }
+export interface TransactionExport {
+  id: string,
+  rawTransactionHex: string,
+  finalizedAt: string,
+  approvalResult: TxApprovalResult,
+  extra: string,
+  draft: string
+}
 
 export interface VelocityLimitDetailResponse {
   before: string,
@@ -321,8 +321,8 @@ const baseUrl = 'http://127.0.0.1:9088/api'
 const Api = {
   common: {
     systemStatus: (): Promise<AxiosResponse<{ [key: string]: boolean }>> => axios.get(`${baseUrl}/setup/system-init-status`),
-    // coinInfos: (): Promise<AxiosResponse<{ coins: CoinInformation[], tokens: TokenInformation[] }>> => axios.get(`${baseUrl}/common/coins/context`),
-    // addCustomToken: (t: TokenInformation): Promise<AxiosResponse<boolean>> => axios.post(`${baseUrl}/common/coins/custom`, t),
+    coinInfos: (): Promise<AxiosResponse<{ coins: CoinInformation[], tokens: TokenInformation[] }>> => axios.get(`${baseUrl}/common/coins/context`),
+    addCustomToken: (t: TokenInformation): Promise<AxiosResponse<boolean>> => axios.post(`${baseUrl}/common/coins/custom`, t),
     getFreeUUID: (): Promise<AxiosResponse<string>> => axios.get(`${baseUrl}/user/free-uuid`),
     restore: (path: string): Promise<AxiosResponse<string>> => axios.post(`${baseUrl}/common/restore`, { path })
   },
@@ -367,12 +367,12 @@ const Api = {
     }
   },
   systemAdmin: {
-    // search: (
-    //   page: number = 0,
-    //   size: number = 20,
-    //   sort: string = 'createdAt,desc'
-    // ): Promise<AxiosResponse<Pageable<FinancialManagerResponse>>> =>
-    //   axios.get(`${baseUrl}/system-admin/financial-manager/search?page=${page}&sort=${sort}&size=${size}`),
+    search: (
+      page: number = 0,
+      size: number = 20,
+      sort: string = 'createdAt,desc'
+    ): Promise<AxiosResponse<Pageable<FinancialManagerResponse>>> =>
+      axios.get(`${baseUrl}/system-admin/financial-manager/search?page=${page}&sort=${sort}&size=${size}`),
     policyApprovers: () => axios.get(`${baseUrl}/system-admin/policy-approvers`),
     existsById: (id: string = '') => axios.get(`${baseUrl}/system-admin/financial-manager/exists?loginId=${encodeURIComponent(id)}`),
     createUser: (dto: any) => axios.post(`${baseUrl}/system-admin/financial-manager`, dto),
@@ -419,13 +419,13 @@ const Api = {
     ): Promise<AxiosResponse<any>> =>
       axios.get(`${baseUrl}/finance-manager/velocity-limit/my-unapproved/detail?id=${id}&walletType=${walletType}&velocityLimitType=${velocityLimitType}`),
     unApprovalUserPolicyDetail: (walletCoinId: string): Promise<AxiosResponse<any>> => axios.get(`${baseUrl}/finance-manager/wallet-approval-user/my-unapproved/detail?walletCoinId=${walletCoinId}`),
-    // myWallets: (): Promise<AxiosResponse<WalletListResponse>> => axios.get(`${baseUrl}/finance-manager/my-wallets`),
-    // walletHistories: (
-    //   walletId: string,
-    //   page: number = 0,
-    //   q: string
-    // ): Promise<AxiosResponse<Pageable<WalletHistoryResponse>>> =>
-    //   axios.get(`${baseUrl}/finance-manager/wallet-histories/${walletId}?size=7&page=${page}&q=${q}`),
+    myWallets: (): Promise<AxiosResponse<WalletListResponse>> => axios.get(`${baseUrl}/finance-manager/my-wallets`),
+    walletHistories: (
+      walletId: string,
+      page: number = 0,
+      q: string
+    ): Promise<AxiosResponse<Pageable<WalletHistoryResponse>>> =>
+      axios.get(`${baseUrl}/finance-manager/wallet-histories/${walletId}?size=7&page=${page}&q=${q}`),
     approveTransaction: (txIds: string[], approve: boolean) => axios.post(`${baseUrl}/finance-manager/tx/approve`, {
       txIds,
       approve
@@ -437,15 +437,15 @@ const Api = {
         size: 10
       }
     }),
-    // checkPolicy: (txIds: string[], approve: boolean): Promise<AxiosResponse<CheckPolicyResponse[]>> => axios.post(`${baseUrl}/finance-manager/tx/check-policy`, {
-    //   txIds,
-    //   approve
-    // })
+    checkPolicy: (txIds: string[], approve: boolean): Promise<AxiosResponse<CheckPolicyResponse[]>> => axios.post(`${baseUrl}/finance-manager/tx/check-policy`, {
+      txIds,
+      approve
+    })
   },
   policyManager: {
     wallet: {
-      // search: (page: number = 0, size: number = 10): Promise<AxiosResponse<Pageable<WalletPolicySearchResponse>>> =>
-      //   axios.get(`${baseUrl}/policy/wallet/search?page=${page}&size=${size}`),
+      search: (page: number = 0, size: number = 10): Promise<AxiosResponse<Pageable<WalletPolicySearchResponse>>> =>
+        axios.get(`${baseUrl}/policy/wallet/search?page=${page}&size=${size}`),
       detail: (walletId: string): Promise<AxiosResponse<WalletPolicyDetailResponse>> => axios.get(`${baseUrl}/policy/wallet/${walletId}`),
       updateWalletApprovers: (id: string, dto: WalletUserUpdateRequest) => axios.put(`${baseUrl}/policy/wallet/${id}/approvers`, dto),
       updateWalletUsers: (id: string, userIds: WalletAdminUser[]) => axios.put(`${baseUrl}/policy/wallet/${id}/admin-list`, userIds),
@@ -477,13 +477,13 @@ const Api = {
     }),
     createWallet: (dto: WalletCreationRequest) => axios.post<WalletCreationResponse>(`${baseUrl}/wallet/create`, dto),
     createTokenWallet: (dto: TokenWalletCreationRequest) => axios.post<WalletCreationResponse>(`${baseUrl}/wallet/token/create`, dto),
-    // logs: (page: number = 0, types: string[]): Promise<AxiosResponse<Pageable<LogViewResponse>>> => axios.get(`${baseUrl}/policy-manager/logs`, {
-    //   params: {
-    //     page,
-    //     types,
-    //     size: 10
-    //   }
-    // })
+    logs: (page: number = 0, types: string[]): Promise<AxiosResponse<Pageable<LogViewResponse>>> => axios.get(`${baseUrl}/policy-manager/logs`, {
+      params: {
+        page,
+        types,
+        size: 10
+      }
+    })
   },
   transaction: {
     get: {
@@ -514,13 +514,13 @@ const Api = {
         axios.post(`${baseUrl}/sc/transmit/wallet`, { ids, transmit })
     },
     export: {
-      // tx: (ids: string[]): Promise<AxiosResponse<TransactionExport[]>> =>
-      //   axios.post(`${baseUrl}/sc/export/tx`, {
-      //     ids,
-      //     transmit: false
-      //   }),
-      // wallet: (): Promise<AxiosResponse<WalletListResponse>> =>
-      //   axios.get(`${baseUrl}/sc/export/wallet`)
+      tx: (ids: string[]): Promise<AxiosResponse<TransactionExport[]>> =>
+        axios.post(`${baseUrl}/sc/export/tx`, {
+          ids,
+          transmit: false
+        }),
+      wallet: (): Promise<AxiosResponse<WalletListResponse>> =>
+        axios.get(`${baseUrl}/sc/export/wallet`)
     },
     import: {
       tx: (msg: object[]): Promise<AxiosResponse<{ status: string }>> =>
@@ -530,8 +530,8 @@ const Api = {
       axios.get(`${baseUrl}/sc/smartcard-init`),
     verifyCard: (cardId: string): Promise<AxiosResponse<boolean>> =>
       axios.post(`${baseUrl}/sc/verify-card`, { cardId }),
-    // replaceCard: (userId: string): Promise<AxiosResponse<SmartCardResetResponse>> =>
-    //   axios.post(`${baseUrl}/sc/replace-card`, { userId })
+    replaceCard: (userId: string): Promise<AxiosResponse<SmartCardResetResponse>> =>
+      axios.post(`${baseUrl}/sc/replace-card`, { userId })
   }
 }
 

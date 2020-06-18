@@ -1,0 +1,560 @@
+@import '~antd/dist/antd.css';
+@import './Util.scss';
+
+@font-face {
+  font-family: OpenSans;
+  src: url("../fonts/OpenSans/OpenSans-Regular.ttf")
+}
+
+body {
+  font-family: OpenSans, serif;
+}
+
+.card-no-margin-body > .ant-card-body {
+  padding: 0 !important;
+}
+
+// Max window
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.palletz-app {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F1F3F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #DEE2E6;
+  border-radius: 8px;
+  border: 2px solid #f1f3f5;
+}
+
+.draft-card > .ant-card-body {
+  padding: 12px 24px 12px 12px;
+}
+
+.wallet-list-card > .ant-card-body {
+  padding: 24px 24px 24px 12px;
+}
+
+.selectable .ant-checkbox-group {
+  display: block;
+}
+
+$pz-brand-color: #418FDE;
+$pz-primary-color: #545871;
+$pz-primary-hover: #DADBE6;
+$pz-policy-selected-color: #C0ECFF;
+$new-wallet-process-size: 17rem;
+
+.ongoing-mode > label {
+  width: calc(100% / 3);
+  text-align: center;
+  height: 40px;
+  line-height: 20px;
+}
+
+.ant-layout {
+  overflow-y: auto;
+}
+
+.ant-layout-sider .side-nav-sider, .ant-layout-header .side-nav-sider {
+  background: black;
+}
+
+.ant-layout-sider .list-sider {
+  background: white;
+}
+
+.sider-profile {
+  line-height: 44px;
+  padding: 32px;
+  background: $pz-brand-color;
+  width: 100%;
+  text-align: center;
+  max-height: 96px;
+  color: white;
+  font-size: 24px;
+}
+
+.ant-menu-dark {
+  background: black;
+
+  .ant-menu-inline.ant-menu-sub {
+    background: black;
+  }
+
+  .ant-menu-item.ant-menu-item-selected {
+    background: $pz-brand-color;
+  }
+}
+
+.ant-menu-submenu-title {
+  color: #F1F3F5;
+  size: 14px;
+  font-weight: 600;
+}
+
+.ant-menu-item-active {
+  box-shadow: inset 0 0 3px rgba(65, 143, 222, 0.8);
+}
+
+.sider-fold {
+  position: absolute;
+  padding: 0 24px;
+  bottom: 0;
+  height: 48px;
+  line-height: 48px;
+  width: 100%;
+}
+
+.ant-menu-inline .ant-menu-item {
+  color: #F1F3F5;
+  size: 14px;
+  font-weight: 600;
+  height: 48px;
+  line-height: 48px;
+}
+
+.cancel-btn {
+  width: 200px;
+}
+
+footer.bottom-control {
+  z-index: 1000;
+  position: fixed;
+  bottom: 64px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  line-height: 60px;
+}
+
+
+
+.popup-wrapper {
+  top: 0;
+  position: fixed;
+  width: calc(100% - 320px);
+  height: 100%;
+  z-index: 1000;
+  background-color: white;
+  overflow: auto;
+  border-bottom: 8px solid #418FDE;
+  animation: loading 0.7s ease;
+
+  @keyframes loading {
+    0% {opacity: 0.3}
+    100% {opacity: 1}
+  }
+
+}
+
+.overwrap-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  text-align: center;
+  line-height: 100%;
+  margin-top: 1.9em;
+
+  .anticon {
+    font-size: 2em;
+  }
+}
+
+.overwrap-icon.danger {
+  color: #FF0808;
+}
+
+.overwrap-icon.success {
+  color: #0CAD5D;
+}
+
+.palletz-tx-item {
+  background: #fff;
+  border: 1px solid #f4f4f4;
+  border-radius: 0.5em;
+  position: relative;
+  margin-bottom: 0.5em;
+  height: 118px;
+
+  strong {
+    color: #060606;
+  }
+
+  strong.description {
+    color: $pz-brand-color;
+  }
+
+  .coin-icon {
+    width: 64px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 118px;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    .overwrap {
+      opacity: 0.5;
+    }
+
+  }
+
+  .content {
+    padding-left: 60px;
+    padding-right: 44px;
+    padding-top: 20px;
+
+    > div {
+      margin-bottom: 7px;
+    }
+  }
+
+  .right-control {
+    line-height: 118px;
+    padding: 0 1em;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.palletz-tx-item:last-child {
+  margin-bottom: 1em;
+}
+
+.ant-card.list-sider-selected {
+  background-color: $pz-brand-color;
+  color: white;
+
+  .list-selected-fill-white {
+    path, rect, circle {
+      fill: white
+    }
+  }
+}
+
+.ant-card.pending {
+  background-color: $pz-policy-selected-color;
+}
+
+.new-wallet-process-radio {
+  line-height: $new-wallet-process-size;
+  height: $new-wallet-process-size;
+  width: $new-wallet-process-size;
+  text-align: center;
+  font-size: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.new-wallet-process-radio-half {
+  height: $new-wallet-process-size / 2;
+  line-height: $new-wallet-process-size / 2;
+}
+
+.margin-center {
+  margin: auto 0;
+}
+
+.mnemonic-check-card > .ant-card-body {
+  line-height: 15rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.pz-active {
+  background: $pz-brand-color;
+  color: white;
+}
+
+.pz-non-active {
+  background: white;
+  color: $pz-brand-color;
+}
+
+div.fingerprint-progress > div {
+  position: relative;
+}
+
+div.fingerprint-progress > div > div.ant-progress-outer {
+  z-index: 10000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+div.fingerprint-progress > div > div.ant-progress-outer > div.ant-progress-inner > div.ant-progress-bg {
+  height: 2rem !important;
+}
+
+div.fingerprint-progress > div > span.ant-progress-text {
+  z-index: 50000;
+  position: absolute;
+  top: 0.5rem;
+  width: 100%;
+  text-align: center;
+  margin-left: 0 !important;
+  color: gray;
+}
+
+span.disabled {
+  opacity: 0.5;
+}
+
+.palletz-whitelist-item.selected {
+  color: #DCDBF2;
+}
+
+.palletz-user-item {
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 1rem;
+}
+
+.menu-highlight {
+
+}
+
+.palletz-app {
+  .velocity-limit-item {
+    text-align: center;
+    background-color: #c4c4c4;
+    width: 100px;
+    height: 70px;
+    font-size: 1em;
+    cursor: pointer;
+
+    span {
+      font-size: 14px;
+      line-height: 27px;
+    }
+  }
+
+  .velocity-limit-item.selected {
+    background-color: $pz-policy-selected-color;
+  }
+}
+
+.token-type-selector-radio-btn {
+  height: 3rem;
+  width: 24rem;
+  margin: .5rem;
+}
+
+.tx-desc {
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.tx-desc.confirmed {
+  border-color: #418FDE;
+  span.confirmed {
+    color: #418FDE;
+    font-weight: bold;
+  }
+}
+
+.tx-desc.rejected {
+  border-color: #E03131;
+  span.rejected {
+    color: #E03131;
+    font-weight: bold;
+  }
+}
+
+.tx-desc-wrapper {
+  .ant-pagination {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.pzicon {
+  width: 22px;
+  height: 22px;
+}
+
+.ant-menu-item > a{
+  display: flex;
+  align-items: center;
+}
+
+.token-type-selector-infinite-container {
+  height: 780px;
+  overflow: auto;
+  padding: .5rem;
+}
+
+.cointype-selector {
+  width: 100%;
+
+  .ant-radio-wrapper {
+    border-bottom: 1px #F1F3F5 solid;
+    margin-right: 0;
+  }
+
+  .ant-radio-wrapper-checked, .ant-radio-wrapper:not(.ant-radio-wrapper-disabled):hover {
+    color: white;
+    background: #418FDE;
+
+    path, rect, circle {
+      fill: white
+    }
+
+    .token-placeholder {
+      border-color: white;
+    }
+  }
+
+  .ant-radio {
+    display: none;
+  }
+
+  span:not(.ant-radio) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+svg.stroke-white {
+  path, rect, circle {
+    stroke: white;
+  }
+}
+
+svg.stroke-black {
+  path, rect, circle {
+    stroke: black;
+  }
+}
+
+svg.stroke-red {
+  path, rect, circle {
+    stroke: red;
+  }
+}
+
+svg.fill-white {
+  path, rect, circle {
+    fill: white;
+  }
+}
+
+.wallet-export {
+  span.ant-transfer-list-content-item-text {
+    display: flex;
+    align-items: center;
+  }
+
+  li.ant-transfer-list-content-item {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.wallet-creation {
+  margin-top: 5rem;
+
+  .ant-form-item-label {
+    text-align: center;
+  }
+}
+
+.token-placeholder {
+  border-radius: 4px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.step-button {
+  width: 300px;
+  height: 40px;
+
+  font-size: 16px;
+
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
+}
+
+.subtitle {
+  font-weight: 200;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.turn-off-btn-wrapper {
+  position: absolute;
+  bottom: 10rem;
+  flex-direction: column;
+}
+
+.turn-off-btn {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-bottom: .5rem;
+
+  &:hover {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.loading-screen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  z-index: 10000;
+  animation: 0.7s ease all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../images/loadingScreen.jpg");
+  flex-direction: column;
+}
+
+.loading-loading {
+  z-index: 12000;
+  position: fixed;
+  bottom: 0;
+  background: $pz-brand-color;
+  left: 0;
+  height: 8px;
+  transition: width ease 1s;
+}
+
+.loading-info {
+  padding-top: 15rem;
+  z-index: 12000;
+  color: white;
+  font-size: 24px;
+}
+
+.loading-indicator {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+  align-items: center;
+}
