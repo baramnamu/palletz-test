@@ -38,6 +38,8 @@ const render = () => {
 
 render()
 
+/* 아래 라인은 webpack.renderer.dev.config.js 파일의 devServer: { ... hot: true, ...} 설정으로 인하여 작동된다. 
+   즉 개발중에 소스(모듈)가 수정되면 즉시 적용해준다. */
 if (module.hot) {
   module.hot.accept('./app', () => render)
 }
