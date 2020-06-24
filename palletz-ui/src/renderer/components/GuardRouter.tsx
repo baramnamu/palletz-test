@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router'
-// import AuthWrapper from './AuthWrapper'
+import AuthWrapper from './AuthWrapper'
 // import SideNav from './SideNav'
 import { RootState } from '../reducers'
 import { batch, connect, useDispatch, useSelector } from 'react-redux'
@@ -21,6 +21,13 @@ const SIDER = [
   '/policy-manager'
 ]
 
+/**
+ * 각 메뉴별 특성을 감안한 라우트(URL) 정보 객체. 실제 라우트 컴포넌트 생성은 아래 concatRoute 함수에서 수행된다.
+ * path: 컨텍스트를 제외한 URL
+ * Component: 해당 메뉴(페이지) 컴포넌트
+ * withoutMenu: 좌측 메뉴 존재 여부
+ * exact: children(서브) 페이지의 주소일 경우는 연결되지 않도록 해주는 속성
+ */
 const routes = [
   {
     path: '/launch',
@@ -144,17 +151,20 @@ const routes = [
   }
 ]
 
+/* 좌측 메뉴 폴드(열기/닫기) 타입 */
 export type Switcher = {
   folded: boolean,
   setFolded: (f: boolean) => void
 }
 
+/* 좌측 메뉴 폴드 컨텍스트 */
 export const FoldContext = React.createContext<Switcher>({
   folded: false,
   setFolded: () => {
   }
 })
 
+/* 좌측 메뉴 상태(FoldContext.folded)와 루트 객체의 각 루트의 메뉴 디스플레이 여부(withoutMenu)를 감안하여 현재 메뉴(페이지)의 컴포넌트를 반환한다.*/
 const withNav = (withoutMenu: boolean, Component: () => JSX.Element) => {
   return (
     <>
@@ -186,16 +196,17 @@ const withNav = (withoutMenu: boolean, Component: () => JSX.Element) => {
   )
 }
 
+/** 실제 라우트 컴포넌트 생성을 수행하는 함수. */
 function concatRoute(self: any, context: string, bucket: React.ReactNode[], key: string) {
   if (self.Component) {
     bucket.push(
       <Route
         path={context + self.path}
         // @ts-ignore
-        // render={() => (<AuthWrapper withoutMenu={self.withoutMenu}>
-        //     {withNav(self.withoutMenu, self.Component)}
-        //   </AuthWrapper>
-        // )}
+        render={() => (<AuthWrapper withoutMenu={self.withoutMenu}>
+            {withNav(self.withoutMenu, self.Component)}
+          </AuthWrapper>
+        )}
         key={key}
         exact={!!self.exact}
       />
