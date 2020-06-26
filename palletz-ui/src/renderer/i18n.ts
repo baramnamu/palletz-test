@@ -31,3 +31,4 @@ export type ResourceKey = keyof typeof o
 
 export const t = (k: ResourceKey, options?: TOptions<any> | string) => i18n.t(k, options)
 export const i18nInstance = i18n
+/* 언어변경은 i18nInstance.changeLanguage('ko_KR') 로 가능하다. */

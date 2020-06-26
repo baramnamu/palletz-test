@@ -70,10 +70,10 @@ const createWindow = async () => {
   win.on('closed', () => (win = null));
   
   // Register other devices only if HSM is ready.
-  registerHSMHandler(win!.webContents, isDevelopment)
-  registerListener(ipcMain, win!.webContents)
-  registerFingerListener(ipcMain, win!.webContents)
-  registerDiskListener(ipcMain, win!.webContents)
+  registerHSMHandler(win!.webContents, isDevelopment)       // HSM Handler
+  registerListener(ipcMain, win!.webContents)               // Smart Card Listener
+  registerFingerListener(ipcMain, win!.webContents)         // Fingerprint Listener
+  registerDiskListener(ipcMain, win!.webContents)           // CD writer Listener로 보이는데 현재 사용하지 않는다고 함.
 
   ipcMain.on('shutdown-palletz',  async (_, channel) => {
     exec('shutdown /s /t 0', (err, stdout, stderr) => {
@@ -111,9 +111,9 @@ if (!singleInstanceLock && isProduction) {
     }
   })
 
-  registerHandler();
+  registerHandler();    // Smart Card Handler
 
   app.on('ready', createWindow)
-    .on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
-    .on('activate', () => win === null && createWindow());
+    .on('window-all-closed', () => process.platform !== 'darwin' && app.quit()) // 'darwin'은 MacOS를 말한다. MacOS일 경우는 종료(app.quit())시키지 않는다.
+    .on('activate', () => win === null && createWindow());                      // 창이 활성화되었을 때 NULL이면 다시 createWindow()를 실행시킨다.
 }
