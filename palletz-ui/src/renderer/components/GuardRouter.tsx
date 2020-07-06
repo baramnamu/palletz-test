@@ -32,7 +32,7 @@ const SIDER = [
 const routes = [
   {
     path: '/launch',
-    // Component: React.lazy(() => import('../pages/LaunchPage')),
+    Component: React.lazy(() => import('../pages/LaunchPage')),
     withoutMenu: true
   },
   {
@@ -197,7 +197,7 @@ const withNav = (withoutMenu: boolean, Component: () => JSX.Element) => {
   )
 }
 
-/* 접근 권한을 체크하기 위해 각각의 라우트 컴포넌트를 AuthWrapper 컴포넌트로 wrapping하여 실제로 Route 컴포넌트를 생성하는 함수. */
+/* 접근 권한을 체크하기 위해 각각의 라우트 컴포넌트를 AuthWrapper 컴포넌트로 wrapping한 다음 실제로 Route 컴포넌트를 생성하는 함수. */
 function concatRoute(self: any, context: string, bucket: React.ReactNode[], key: string) {
   if (self.Component) {
     bucket.push(

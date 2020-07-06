@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
 // const isQa = process.env.NODE_ENV === 'qa';
 
-let win: BrowserWindow | null;
+let win: BrowserWindow | null;  // Chromium 윈도우
 
 const installExtensions = async () => {
     const installer = require('electron-devtools-installer')
@@ -55,7 +55,8 @@ const createWindow = async () => {
   }
 
   if (!isProduction) {
-    // Open DevTools, see https://github.com/electron/electron/issues/12438 for why we wait for dom-ready
+    /* Open DevTools, see https://github.com/electron/electron/issues/12438 for why we wait for dom-ready
+       webContents is an EventEmitter.  It is responsible for rendering and controlling a web page. */
     win.webContents.once('dom-ready', () => {
       win!.webContents.openDevTools()
     })

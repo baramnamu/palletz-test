@@ -33,7 +33,7 @@ module.exports = merge.smart(baseConfig, {
             '@babel/preset-typescript'
           ],
           plugins: [
-            ['@babel/plugin-proposal-class-properties', { loose: true }]  // loose: true 로 셋팅하면 클래스 속성을 Object.propertyName = value 형식으로 속성을 추가한다.
+            ['@babel/plugin-proposal-class-properties', { loose: true }]  // loose: true 로 셋팅하면 클래스 속성을 Object.propertyName = value 형식으로 추가한다.
           ]
         }
       }
@@ -47,7 +47,7 @@ module.exports = merge.smart(baseConfig, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
-    new CopyPlugin([
+    new CopyPlugin([    // 외부 파일을 output 경로로 복사한다.
       'src/main/slotmanager.exe'
     ])
   ]

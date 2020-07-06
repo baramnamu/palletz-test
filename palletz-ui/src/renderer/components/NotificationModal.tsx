@@ -84,7 +84,7 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
     })
   }
 
-
+  /* 알림(Notification) 정보의 타입 이름표를 만든다.*/
   const getPageTypeText = (k: string): string => {
     const pageTypeMap = new Map()
     pageTypeMap.set('DRAFT', t('common.notification.pageType.draft'))
@@ -98,7 +98,7 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
     return pageTypeMap.get(k)
   }
 
-
+  /* 시스템관리자 관련 알림 모음 중에서 해당되는 알림의 노드를 생성하여 반환한다. */
   const getSystemManagerStatus = (d: any): React.ReactNode => {
     if( d.pageType === 'WALLET') {
       if( d.actionType === 'CHANGED_FINANCIAL_ADMIN' ) return <><span>{t('common.notification.status.changedFinancialAdmin')}</span> {d.isBackupRequire && <span> -> {t('common.notification.status.backupRequired')}</span>}</>
@@ -137,22 +137,23 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
     return 'Unknown'
   }
 
+  /* 정책관리자 관련 알림 모음 중에서 해당되는 알림의 노드를 생성하여 반환한다. */
   const getPolicyManagerStatus = (d: any): React.ReactNode => {
-    if( d.pageType === 'FINANCIAL_ADMIN') {
+    if( d.pageType === 'FINANCIAL_ADMIN') {         // 재정관리자 추가/삭제/카드교체 알림
       if( d.actionType === 'ADDED' ) return <span><span style={{color:'#0CAD5D', marginRight:'15px'}}>{t('common.notification.status.added')}</span><span> {d.log.loginId}</span></span>
       if( d.actionType === 'DELETED' ) return <span><span style={{color:'#E03131', marginRight:'15px'}}>{t('common.notification.status.deleted')}</span><span> {d.log.loginId}</span></span>
       if( d.actionType === 'REPLACED_CARD' ) return <span><span style={{marginRight:'15px'}}>{t('common.notification.status.cardReplace')}</span><span> {d.log.loginId}</span></span>
     }
-    else if( d.pageType === 'GLOBAL_POLICY' ) {
+    else if( d.pageType === 'GLOBAL_POLICY' ) {     // Global 정책 변경 알림
       if( d.actionType === 'ADDED_WHITELIST' || d.actionType === 'DELETED_WHITELIST'
         || d.actionType === 'CHANGED_WHITELIST_NAME' || d.actionType === 'CHANGED_GROUP' || d.actionType === 'CHANGED_GROUP_NAME') {
         return (<><span style={{color: '#0CAD5D', marginRight: '15px'}}>{t('common.notification.status.approved')}</span><span>({t('common.notification.status.whitelistUpdated')})</span></>)
       }
-      if( d.actionType === 'REJECTED_WHITELIST' ) {
+      if( d.actionType === 'REJECTED_WHITELIST' ) {       // 화이트리스트 변경 기각 알림
         return (<><span style={{color:'#E03131', marginRight:'15px'}}>{t('common.notification.status.rejected')}</span><span>({t('common.notification.status.whitelistUpdated')})</span></>)
       }
     }
-    else if( d.pageType === 'WALLET_POLICY' ) {
+    else if( d.pageType === 'WALLET_POLICY' ) {       // 지갑 송금 정책 변경 알림
       if( d.actionType === 'CHANGED_VELOCITY_LIMIT' || d.actionType === 'REJECTED_VELOCITY_LIMIT' ) {
         return (
           <span>
@@ -177,12 +178,12 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
         )
       }
     }
-    else if( d.pageType === 'POLICY_APPROVER') {
+    else if( d.pageType === 'POLICY_APPROVER') {    // 정책승인자 변동 알림
       const before: string[] = d.log.beforeUsers ? d.log.beforeUsers : []
       const after: string[] = d.log.afterUsers ? d.log.afterUsers : []
 
-      const inUsers = after.filter(au => !before.some(bu => bu === au))
-      const outUsers = before.filter(bu => !after.some(au => bu === au))
+      const inUsers = after.filter(au => !before.some(bu => bu === au))     // 새로 추가된 정책승인자
+      const outUsers = before.filter(bu => !after.some(au => bu === au))    // 해제된 정책승인자
 
       if(inUsers.length === 0) inUsers.push('-')
       if(outUsers.length === 0) outUsers.push('-')
@@ -200,6 +201,7 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
     return 'Unknown'
   }
 
+  /* 재정관리자 관련 알림 모음 중에서 해당되는 알림의 노드를 생성하여 반환한다. */
   const getFinancialManagerStatus = (d: any): React.ReactNode => {
     if( d.pageType === 'DRAFT') {
       if( d.actionType === 'APPROVED' ) return <span><span style={{color:'#0CAD5D'}}>{t('common.notification.status.approved')}</span></span>
@@ -243,7 +245,7 @@ const NotificationModal: React.FC<ModalProps> = (props) => {
     return 'Unknown'
   }
 
-
+  /* 현재 로그인된 사용자의 역할(props.userRole) 세 가지에 따라서 위의 세 가지 그룹(getFinancialManagerStatus) 중 해당되는 알림 노드 생성 로직을 선택한다.*/
   const getStatus = (d: any): any => {
     if( props.userRole === 'SYSTEM_MANAGER' ) {
       return getSystemManagerStatus(d)

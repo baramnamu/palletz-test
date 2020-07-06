@@ -8,7 +8,7 @@ const baseConfig = require('./webpack.base.config');
 
 module.exports = merge.smart(baseConfig, {
     target: 'electron-renderer',
-    entry: {
+    entry: {    // @babel/polyfill은 ES2015+ 환경을 에뮬레이트한다.
         app: ['@babel/polyfill','./src/renderer/app.tsx']
     },
     module: {
@@ -16,7 +16,7 @@ module.exports = merge.smart(baseConfig, {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel-loader', // babel-loader가 아래 preset 속성에 등록된 모든 소스 코드를 JavaScript로 해석한다.
                 options: {
                     cacheDirectory: true,
                     babelrc: false,
@@ -62,7 +62,7 @@ module.exports = merge.smart(baseConfig, {
                     }
                 ]
             },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.  이렇게 하면 기존의 TypeScript 소스 코드를 디버깅하는 것 처럼 최종 출력 파일을 디버깅 할 수 있습니다.
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'. 이렇게 하면 기존의 TypeScript 소스 코드를 디버깅하는 것처럼 최종 출력 파일을 디버깅 할 수 있습니다.
             {
                 enforce: 'pre',
                 test: /\.(js|ts|tsx)$/,
@@ -78,10 +78,10 @@ module.exports = merge.smart(baseConfig, {
         new ForkTsCheckerWebpackPlugin({
             reportFiles: ['src/renderer/**/*']
         }),
-        //  NamedModulesPlugin은 development 모드에서 웹팩 파일 로그에, 상대 경로를 알려준다
+        // NamedModulesPlugin은 development 모드에서 웹팩 파일 로그에, 상대 경로를 알려준다
         new webpack.NamedModulesPlugin(),
         new HtmlWebpackPlugin({
-          template: path.join(__dirname, 'src/main/index.html'),
+          template: path.join(__dirname, 'src/main/index.html'),        // Template HTML 파일. 여기서부터 React DOM이 rendering된다.
           inject: true, // <BODY> 밑으로 .js 파일이 삽입된다.
           filename: path.join(__dirname, 'dist/index.html')
         }),
