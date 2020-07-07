@@ -7,8 +7,7 @@ module.exports = merge.smart(baseConfig, {
     devtool: 'inline-source-map',
     resolve: {
         alias: {
-            // 공식 소스(1.X)에서는 아래 라인이 있어서 넣어 봤지만 이 라인의 설정 때문에 오류가 계속 발생하여 주석처리한다.
-            // 'react-dom': '@hot-loader/react-dom'
+            'react-dom': '@hot-loader/react-dom'
         }
     },
     devServer: {

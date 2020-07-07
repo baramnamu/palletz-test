@@ -2,8 +2,8 @@ import * as React from 'react'
 import { Route } from 'react-router'
 import SystemAdmin from './LaunchPage/SystemAdmin'
 import WalletSetting from './LaunchPage/WalletSetting'
-import PolicyAdmin from './LaunchPage/PolicyAdmin'
-import SettingCompleted from './LaunchPage/SettingCompleted'
+// import PolicyAdmin from './LaunchPage/PolicyAdmin'
+// import SettingCompleted from './LaunchPage/SettingCompleted'
 import LaunchSteps from './LaunchPage/LaunchSteps'
 import './LaunchPage.scss'
 
@@ -12,7 +12,7 @@ import {
   defaultAdminInformation,
   defaultMnemonicInformation,
   defaultVerifyInformation,
-  MnemonicContext,
+  MnemonicContext,  
   VerifyContext
 } from './LaunchPageContext'
 
@@ -23,15 +23,15 @@ const LaunchPage: React.FC = () => {
 
   return (
     <div className="launch-wrapper">
-      <LaunchSteps/>
+      <LaunchSteps/>    {/* 상단 Step Progress Bar 표시 */}
       <div className="launch-inner">
         <AdminContext.Provider value={{ admin, setAdmin }}>
           <VerifyContext.Provider value={{ verify, setVerify }}>
             <MnemonicContext.Provider value={{ info, setInfo }}>
               <Route path={`/launch/system-admin`} render={() => (<SystemAdmin/>)}/>
               <Route path={`/launch/wallet-setting`} render={() => (<WalletSetting/>)}/>
-              <Route path={`/launch/policy-admin`} render={() => (<PolicyAdmin/>)}/>
-              <Route path={`/launch/setting-completed`} render={() => (<SettingCompleted/>)}/>
+              {/* <Route path={`/launch/policy-admin`} render={() => (<PolicyAdmin/>)}/>
+              <Route path={`/launch/setting-completed`} render={() => (<SettingCompleted/>)}/> */}
             </MnemonicContext.Provider>
           </VerifyContext.Provider>
         </AdminContext.Provider>

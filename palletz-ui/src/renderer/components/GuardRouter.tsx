@@ -136,7 +136,7 @@ const routes = [
     children: [
       {
         path: '/step',
-        // Component: React.lazy(() => import('../pages/LaunchPage/LaunchSteps')),
+        Component: React.lazy(() => import('../pages/LaunchPage/LaunchSteps')),
         withoutMenu: true
       },
       {
@@ -147,7 +147,7 @@ const routes = [
   },
   {
     path: '/404',
-    // Component: React.lazy(() => import('../404')),
+    Component: React.lazy(() => import('../404')),
     withoutMenu: true
   }
 ]
@@ -208,7 +208,7 @@ function concatRoute(self: any, context: string, bucket: React.ReactNode[], key:
             {withNav(self.withoutMenu, self.Component)}
           </AuthWrapper>
         )}
-        key={key}
+        key={key}   //  a unique key prop added to each route component will cause React to recreate the component instance when the route changes.
         exact={!!self.exact}
       />
     )
@@ -382,11 +382,10 @@ const GuardRouter: React.FC<ReduxType> = props => {
   return (
     <>
       {showScreen ? (
-        // <Switch>는 현재 경로에 매칭되는 첫번째 자식 <Route> 혹은 <Redirect> 엘리먼트를 렌더링한다.
         <FoldContext.Provider value={foldValue}>
           {renderSide && <SideNav key="__SIDER__"/>}
           <div onMouseMove={onMouseMove} style={{ width: '100%', height: '100%' }}>
-            <Switch>{R}</Switch>
+            <Switch>{R}</Switch>    {/* <Switch>는 현재 경로에 매칭되는 첫번째 자식 <Route> 혹은 <Redirect> 엘리먼트를 렌더링한다. */}
           </div>
         </FoldContext.Provider>
       ) : (
