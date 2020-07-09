@@ -85,7 +85,8 @@ const Check: React.FC<Props> = (props) => {
 
   const checkCount = sequence === 'new' ? totalCount : needCount
 
-  const mnemonicCard = (        // "엔트로피 - 니모닉 사이즈", "니모닉 갯수", "verify 단계 / check count" 등의 안내 정보 카드
+  /* "엔트로피 - 니모닉 사이즈", "니모닉 갯수", Need Count of Total Count, "verify 단계 / check count" 등의 안내 정보 카드 */
+  const mnemonicCard = (
     <div className="launch-mnemonic-wrapper">
       <div>
         <div className="launch-default-container launch-mnemonic-card fill">

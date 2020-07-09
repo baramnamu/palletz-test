@@ -7,7 +7,7 @@ import { routerMiddleware } from 'connected-react-router'
 
 export const history = createHashHistory()
 
-/* store는 세션이나 지갑 정보처럼 거의 모든 페이지와 기능의 상태에 관계있는 정보를 저장한다. */
+/* store는 Route, 세션, 지갑 정보처럼 거의 모든 페이지와 기능의 상태에 관계있는 정보를 저장한다. */
 const configureStore = (initialState?: RootState) => {
   return createStore(
     rootReducer(history),

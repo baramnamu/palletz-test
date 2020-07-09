@@ -446,6 +446,7 @@ const mapStateToProps = (state: RootState): ReduxType => ({   // Store가 가진
   location: state.router.location
 })
 
-/* 만약 이 컴포넌트에서 Store의 state를 수정해야 하는 로직이 있다면 mapDispatchToProps 혹은 bindActionCreators 함수도 필요하다.
-   위에서 만들어진 mapStateToProps를 GuardRouter 컴포넌트에 연결하고 익스포트한다. */
+/* mapStateToProps 함수를 사용하여 Store의 state를 props으로 참조할 수 있다.
+   만약 Store의 state를 자동으로(dispatch 호출없이) 수정해야 한다면 dispatch를 props에 연결시키는 mapDispatchToProps 혹은 bindActionCreators 함수가 필요하다.
+   connect를 사용하여 위에서 만들어진 mapStateToProps를 GuardRouter 컴포넌트에 연결하고 익스포트한다. */
 export default connect(mapStateToProps)(GuardRouter)

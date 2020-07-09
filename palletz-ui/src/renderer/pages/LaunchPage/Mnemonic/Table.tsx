@@ -16,6 +16,10 @@ type RefType = {
   setWord: (s: string) => void
 }
 
+/* package.json -> scripts 영역에 MNEMONIC_BYPASS=1 로 환경 변수 설정이 셋팅되어 있는 스크립트(보통 개발 모드로 포함)를 실행하면 아래 니모닉이 자동으로 입력된다.
+   아래 니모닉을 통해 생성되는 지갑들을 메인넷에서 쓸 수는 있지만 실제 코인이 없어서 송금 테스트 등에 그대로는 쓸 수가 없다.
+   TODO: 실제 비트코인이 들어있는 회사 공식 테스트 지갑을 생성하기 위한 니모닉은 사내 보안 정책상 소스에 그대로는 포함할 수가 없는데 향후 암호화하여 아래 words 부분을 교체하자.
+ */
 const words = [
   [
     "across", "deal", "mean", "bag", "midnight", "caught", "brick", "artist", "grunt", "debate", "border", "explain", "mass", "castle", "book", "this", "all", "drip", "like", "speed", "heavy", "glide", "book", "smoke", "silent", "decrease", "old", "smart", "goose", "drum", "broken", "sugar", "either", "crane", "crack", "extra", "major", "lock", "borrow", "speed", "choose", "couple", "light", "evoke", "major", "logic", "original", "armed", "treat"
@@ -24,6 +28,7 @@ const words = [
     "affair", "during", "mutual", "evoke", "little", "category", "borrow", "sugar", "mask", "economy", "present", "era", "heavy", "affair", "oblige", "baby", "maid", "crowd", "canyon", "eternal", "hammer", "catch", "october", "smoke", "play", "early", "meadow", "spend", "good", "drum", "pave", "this", "choice", "edge", "banana", "atom", "hedgehog", "fat", "breeze", "steak", "green", "deer", "another", "eyebrow", "hold", "during", "castle", "second", "lecture"
   ]
 ]
+
 
 const mnemonicSize = Object.values(EntropySizes).reduce((acc: { [key: number]: number }, val) => {
   acc[val[1] - 4] = val[0]

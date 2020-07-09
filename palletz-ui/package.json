@@ -12,7 +12,6 @@
     "start-main-dev": "webpack --config webpack.main.config.js && electron ./dist/main.js",
     "start-renderer-dev": "webpack-dev-server --config webpack.renderer.dev.config.js",
     "start-dev": "cross-env MNEMONIC_BYPASS=1 START_HOT=1 npm run start-renderer-dev",
-    "start-dev-mnemonic": "cross-env START_HOT=1 npm run start-renderer-dev",
     "start": "electron .",
     "test": "jest '(\\/test\\/(?!e2e/)).*'"
   },
