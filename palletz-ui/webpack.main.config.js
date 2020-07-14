@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const baseConfig = require('./webpack.base.config')
 
 module.exports = merge.smart(baseConfig, {
-  target: 'electron-main',    // target은 개발 대상 환경을 지정한다. 예: web, webworker, node, node-webkit, electron-renderer, async-node, ...
+  target: 'electron-main',      // target은 개발 대상 환경을 지정한다. 예: web, webworker, node, node-webkit, electron-renderer, async-node, ...
   entry: {
     main: './src/main/main.ts'
   },
@@ -27,7 +27,7 @@ module.exports = merge.smart(baseConfig, {
           babelrc: false,
           presets: [
             [
-              '@babel/preset-env',  // 웹브라우저 버전별로 최적화시켜준다. 아래 targets: 옵션에 타겟 브라우저 종류를 명시한다. 참조: https://browserl.ist/
+              '@babel/preset-env',      // 웹브라우저 버전별로 최적화시켜준다. 아래 targets: 옵션에 타겟 브라우저 종류를 명시한다. 참조: https://browserl.ist/
               { targets: 'maintained node versions' }
             ],
             '@babel/preset-typescript'
@@ -40,7 +40,7 @@ module.exports = merge.smart(baseConfig, {
     ]
   },
   plugins: [
-    // ForkTsCheckerWebpackPlugin 는 Typescript Error를 보고한다. Typescript로 React 개발시 필수.
+    // ForkTsCheckerWebpackPlugin 은 Typescript Error를 보고한다. Typescript로 React 개발시 필수.
     new ForkTsCheckerWebpackPlugin({
       reportFiles: ['src/main/**/*']
     }),

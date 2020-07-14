@@ -72,6 +72,7 @@ const MasterKeyForm = (props: Props) => {
 
     setLoading(true)
 
+    /* 실제 니모닉 검증은 Table.tsx에서 이루어진다.  */
     if (sequence === 'new') {
       Api.crypto.mnemonic.newWallet
         .generate(masterKeyInformation)

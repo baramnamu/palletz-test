@@ -4,8 +4,8 @@ import * as url from 'url'
 import { registerHandler, registerListener } from 'pzsc/dist/main'
 import { registerFingerListener } from 'pzfinger/dist/finger'
 import registerHSMHandler from './hsm'
-import { registerDiskListener } from 'pzburn/dist/disk'
 import { exec } from 'child_process'
+import { registerDiskListener } from 'pzburn/dist/disk'
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -16,7 +16,7 @@ let win: BrowserWindow | null;  // Chromium 윈도우
 const installExtensions = async () => {
     const installer = require('electron-devtools-installer')
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS
-    const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
+      const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
     return Promise.all(
       extensions.map(name => installer.default(installer[name], forceDownload))
     ).catch(console.log)
@@ -50,7 +50,7 @@ const createWindow = async () => {
           pathname: path.join(__dirname, 'index.html'),
           protocol: 'file:',
           slashes: true
-        }) + '#/login'
+          }) + '#/login'
       )
   }
 
@@ -95,10 +95,10 @@ const createWindow = async () => {
       }
     })
   })
-
 }
 
 const singleInstanceLock = app.requestSingleInstanceLock();
+// const singleInstanceLock = true
 
 if (!singleInstanceLock && isProduction) {
   app.quit()
@@ -116,5 +116,5 @@ if (!singleInstanceLock && isProduction) {
 
   app.on('ready', createWindow)
     .on('window-all-closed', () => process.platform !== 'darwin' && app.quit()) // 'darwin'은 MacOS를 말한다. MacOS일 경우는 종료(app.quit())시키지 않는다.
-    .on('activate', () => win === null && createWindow());                      // 창이 활성화되었을 때 NULL이면 다시 createWindow()를 실행시킨다.
+    .on('activate', () => win === null && createWindow());  
 }

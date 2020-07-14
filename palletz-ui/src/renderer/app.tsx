@@ -22,8 +22,8 @@ setVerbose()    // pzsc 로그 출력 옵션을 켠다.
 
 /* 스마트 카드 이벤트를 등록한다. 이벤트 종류는 args에 들어있다. HSM과 달리 이벤트 send는 pzsc에서 수행된다.*/
 ipcRenderer.on(SMART_CARD_EVENT, (event, args) => {
-    EventEmitter.dispatch(SMART_CARD_EVENT, { s: args, isReset: false, isChecked: false })  // EventEmitter에 SMART_CARD_EVENT를 subscibe하는 곳을 찾을 수가 없는데, 여유가 될 때 찾아보자.
-    event.returnValue = true
+  EventEmitter.dispatch(SMART_CARD_EVENT, { s: args, isReset: false, isChecked: false })  // EventEmitter에 SMART_CARD_EVENT를 subscibe하는 곳을 찾을 수가 없는데, 여유가 될 때 찾아보자.
+  event.returnValue = true
 })
 
 const render = () => {

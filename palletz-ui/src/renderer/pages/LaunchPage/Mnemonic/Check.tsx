@@ -35,6 +35,7 @@ const Check: React.FC<Props> = (props) => {
   })
   const [combineFail, setCombineFail] = React.useState(false)
 
+  /* 단계별 타이틀 및 안내 문구 셋팅 */
   React.useEffect(() => {
     if (sequence === 'new') {
       switch (currentStep) {
@@ -66,14 +67,14 @@ const Check: React.FC<Props> = (props) => {
       }
     } else {
       switch (currentStep) {
-        case VerifyStep.CHECK1:
+        case VerifyStep.CHECK1: // break문이 없으므로 VerifyStep.SHOW: 아래 코드가 실행된다. ㅠㅠ
         case VerifyStep.SHOW:
           setTitle({
             main: 'setup.ws.MnemonicCheckInput.Title',
             sub: 'setup.ws.MnemonicCheckInput.Subtitle'
           })
           break
-        case VerifyStep.CHECK2:
+        case VerifyStep.CHECK2: 
           setTitle({
             main: 'setup.ws.MnemonicCheckComplete.Title',
             sub: 'setup.ws.MnemonicCheckComplete.Subtitle'
@@ -85,7 +86,7 @@ const Check: React.FC<Props> = (props) => {
 
   const checkCount = sequence === 'new' ? totalCount : needCount
 
-  /* "엔트로피 - 니모닉 사이즈", "니모닉 갯수", Need Count of Total Count, "verify 단계 / check count" 등의 안내 정보 카드 */
+  /** "엔트로피 - 니모닉 사이즈", "니모닉 갯수", Need Count of Total Count, "verify 단계 / check count" 등의 안내 정보 카드 */
   const mnemonicCard = (
     <div className="launch-mnemonic-wrapper">
       <div>
@@ -119,6 +120,7 @@ const Check: React.FC<Props> = (props) => {
   const { step, setStep } = React.useContext(StepContext)
   const { setInfo } = React.useContext(MnemonicContext)
 
+  /** 니모닉 입력이 실패나 사용자 취소로 끝났을 경우의 처리 프로세스 */
   const onCombineFail = () => {
     setCombineFail(false)
     setStep(1)

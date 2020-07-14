@@ -68,9 +68,9 @@ export default ({ history }: AppProps) => {
   React.useEffect(() => {
     const watcher = EventEmitter.subscribe('refresh-coin-context', setCoinContext)
     return () => watcher()
-  }, [])  // 두 번째 인수로 넘긴 빈 배열([])의 의미는 "clean-up 과정을 마운트와 마운트 해제 시에 딱 한 번씩만 실행"한다는 의미이다.
-          // 만약 state 변수가 배열 속에 들어 있으면 "clean-up 과정을 state변수가 바뀌는 경우 = 렌더링 시 마다 실행"한다.
-          // 참조> https://ko.reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
+  }, [])    /* 두 번째 인수로 넘긴 빈 배열([])의 의미는 "clean-up(메모리 해제) 과정을 마운트와 마운트 해제 시에 딱 한 번씩만 실행"한다는 의미이다.
+               만약 state 변수가 배열 속에 들어 있으면 "clean-up 과정을 state변수가 바뀌는 경우 = 렌더링 시 마다 실행"한다.
+               참조> https://ko.reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects */
 
   return (
     <ConnectedRouter history={history}>

@@ -55,7 +55,7 @@ module.exports = merge.smart(baseConfig, {
                 use: [
                     'file-loader',
                     {
-                        loader: 'image-webpack-loader', // 이미지 파일을 압축/최적화한다.
+                        loader: 'image-webpack-loader',     // 이미지 파일을 압축/최적화한다.
                         options: {
                             disable: true   // webpack@2.x 이상의 debug 모드에서 일반적인 file-loader처럼 동작한다; 파일 압축/최적화 없음.
                         }
