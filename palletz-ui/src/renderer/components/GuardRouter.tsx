@@ -357,6 +357,7 @@ const GuardRouter: React.FC<ReduxType> = props => {
     console.log("LastMovement:", lastMovement)
   }, 1000), [])
 
+  /* 마우스를 일정시간동안 움직이지 않으면 자동으로 로그아웃시키는 Side-Effect 함수 */
   useEffect(() => {
     const handler = setInterval(() => {
       if (pathname.startsWith('/login')) {
