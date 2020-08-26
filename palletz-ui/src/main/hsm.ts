@@ -12,6 +12,7 @@ type ExecResult = {
   stderr: string
 }
 
+/* 비동기 방식으로 외부 실행 파일을 실행시키기 위한 Promise 객체 */
 const promiseExecFile = (file: string, option: string[]): Promise<ExecResult> => {
   console.log(file)
   return new Promise<ExecResult>((resolve, reject) => {
