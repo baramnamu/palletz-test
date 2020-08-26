@@ -169,4 +169,4 @@ const AuthWrapper: React.FC<RouteComponentProps & { withoutMenu: boolean }> = pr
   )
 }
 
-export default withRouter(AuthWrapper)
+export default withRouter(AuthWrapper)  // withRouter는 props.location, props.history에 접근해야 하는 경우 사용한다.
