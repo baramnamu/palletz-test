@@ -100,7 +100,7 @@ const AuthWrapper: React.FC<RouteComponentProps & { withoutMenu: boolean }> = pr
     async function checkAuth() {
       if (isDone) {
         try {
-          const { data: { init } } = await api.common.systemStatus()
+          const { data: { init } } = await api.common.systemStatus()    // key_store 테이블에 레코드가 하나라도 있으면 - master key가 있다면 - { data: { true }}가 리턴
           // init와 관계없이 일단 서버와의 API 통신 성공
           if (init) {
             const sessionKey = session.getSessionKey()
