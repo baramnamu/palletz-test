@@ -289,7 +289,7 @@ const SideNav = (props: RouteComponentProps & Props & ReturnType<typeof mapState
                     .map((sub, j) => (
                       <Menu.Item
                         key={`${i}-${j}`}
-                        className={sub.link === location.pathname ? 'ant-menu-item-selected' : ''}
+                        className={sub.link === location.pathname ? 'ant-menu-item-selected' : ''}  // 현재 path에 해당하는 메뉴를 굵게 표시해주는 부분
                       >
                         {sub.link ? (                                   // <NavLink>는 현재 URL이 to 속성의 링크값과 일치할 경우 스타일 속성이 추가해준다.
                           <NavLink to={sub.link}>
